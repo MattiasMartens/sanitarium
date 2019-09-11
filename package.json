@@ -1,0 +1,15 @@
+{
+    "name": "sanitary",
+    "version": "1.0.0",
+    "description": "Function contract definition language for safety and sanity",
+    "main": "index.ts",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Mattias Martens <mattiasofmartens@gmail.com>",
+    "license": "ISC",
+    "dependencies": {
+        "fp-ts": "^2.0.5",
+        "io-ts": "^2.0.1"
+    }
+}
