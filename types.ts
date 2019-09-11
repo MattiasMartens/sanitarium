@@ -8,7 +8,6 @@ export type ParameterContract<O, T = unknown, S = unknown, U = unknown> = Contra
 export type ReturnContract<S, U = unknown> = Contract<S, U>;
 
 export type Contract<O, T = unknown> = Shape<O> & {
-  cases?: (Case<O, T>)[],
   fiats?: Fiat<O, T, any>[]
 };
 
