@@ -1,6 +1,6 @@
 import {} from "io-ts";
 
-import { ParameterContract, ContractFailure } from "./types";
+import { ParameterContract, ContractFailure, ReturnContract } from "./types";
 import { checkContract, getError } from "./contracts";
 import { isLeft, mapLeft } from "fp-ts/lib/Either";
 
@@ -10,8 +10,13 @@ export function laxFunction<T extends Array<any>, V>(fn: (...args: T) => V) {
 
 export function strictFunction<T extends Array<any>, V>(
   fn: (...args: T) => V,
-  inContract?: ParameterContract<T>,
-  outContract?: ParameterContract<V>
+  {
+    inContract,
+    outContract
+  }: {
+    inContract?: ParameterContract<T>,
+    outContract?: ReturnContract<V>
+  }
 ) {
   return function(...args: T) {
     if (inContract) {
@@ -28,7 +33,7 @@ export function strictFunction<T extends Array<any>, V>(
       const contractResult = checkContract(outContract, output);
 
       mapLeft((val: ContractFailure<V>) => {
-        throw getError(val)
+        throw new Error(getError(val));
       })(contractResult);
     }
 
@@ -36,16 +41,21 @@ export function strictFunction<T extends Array<any>, V>(
   }
 }
 
-export function firmFunctionFactory(isTestEnvironment: boolean) {
+export function firmFunctionFactory(isGuardedEnvironment: boolean) {
   return function firmFunction<T extends Array<any>, V>(
     fn: (...args: T) => V,
-    inContract?: ParameterContract<T>,
-    outContract?: ParameterContract<V>
+    {
+      inContract,
+      outContract
+    }: {
+      inContract?: ParameterContract<T>,
+      outContract?: ReturnContract<V>
+    }
   ) {
-    if (isTestEnvironment) {
+    if (isGuardedEnvironment) {
       return laxFunction(fn);
     } else {
-      return strictFunction(fn, inContract, outContract);
+      return strictFunction(fn, {inContract, outContract});
     }
   }
 }

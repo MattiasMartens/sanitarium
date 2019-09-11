@@ -1,44 +1,72 @@
-import { Type } from "io-ts";;
+import { Type } from "io-ts";
+import { Either } from "fp-ts/lib/Either";
 
-export type ParameterContract<O> = {
-  type: Type<unknown, O, unknown>,
-  constraints?: Constraint<O>[],
-  cases?: (Case<any>)[]
+export type ParameterContract<O, T = unknown, S = unknown, U = unknown> = Contract<O, T> & {
+  cases?: InputCase<O, T, S, U>[]
 }
 
-export type ArgumentContract<O> = {
-  type: Type<unknown, O, unknown>,
-  constraints?: Constraint<O>[]
+export type ReturnContract<S, U = unknown> = Contract<S, U>;
+
+export type Contract<O, T = unknown> = Shape<O> & {
+  cases?: (Case<O, T>)[],
+  fiats?: Fiat<O, T, any>[]
+};
+
+export type Shape<O> = {
+  type: Type<O>,
+  constraint?: Constraint<O>
 }
 
-export type Contract<O> = ParameterContract<O>;
+export type Constraint<O> = (o: O) => Either<FailedAssertion[], true>;
 
-type Constraint<O> = (o: O) => ({
-  passing: boolean
-} & ({} | {
+export type FailedAssertion = {
   actual: any,
-  expected: any
-}));
+  expected: any,
+  expression?: string,
+  description?: string
+};
 
-type Case<T> = { accessor: Accessor } & ({
+type Case<T, V> = { accessor: Accessor<T, V> } & ({
   tag: "_unaryFunctionOn",
-  function: (a: T) => any,
-  result: ParameterContract<any>
+  function: (a: T) => V,
+  result: Shape<V>
 } | {
   tag: "_multipleArityFunctionOn",
-  function: Function,
+  function: (...args: any[]) => V,
   otherArgs: any[],
   placementIndex: number,
-  result: ParameterContract<any>
+  result: Shape<V>
 } | {
   tag: "_predicateTrueOf",
   predicate: Function
-})
+});
 
-type Accessor = (string | number | Symbol)[];
+type InputCase<S, Q, T, V> = Case<S, Q> & {
+  expectedOutput: Case<T, V>
+};
+
+type Accessor<T, V> = {
+  getter: (t: T) => V,
+  setter?: (v: V) => void,
+  name?: string
+};
 
 export type ContractFailure<T> = {
   failedInput: any;
-  expectedType: T;
-  failedConstraints?: Constraint<T>[]
+  expectedType: Type<T>;
+  failedAssertions?: FailedAssertion[]
 };
+
+export type Fiat<T, V, M> = Case<T, V> & ({
+  tag: "_fiatVal",
+  fiat: M
+} | {
+  tag: "_fiatFn",
+  fiat: (
+    witness: V,
+    full: T,
+  ) => M
+} | {
+  "_fiatError",
+  fiat: string
+});
