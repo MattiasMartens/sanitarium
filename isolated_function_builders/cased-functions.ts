@@ -21,3 +21,21 @@ export function casedFunction<T extends any[], V>(fn: (...args: T) => V, cases: 
     return result;
   }
 }
+
+export async function casedFunctionAsync<T extends any[], V>(fn: (...args: T) => Promise<V>, cases: Case<T, V>[]) {
+  return async (...args: T) => {
+    const inPredicatesMatched = cases.filter(
+      ({inPredicate}) => inPredicate(...args)
+    );
+
+    const result = await fn(...args);
+
+    for (let {outPredicate} of inPredicatesMatched) {
+      if (!outPredicate(result)) {
+        throw new Error("Case failed to match");
+      }
+    }
+
+    return result;
+  }
+}

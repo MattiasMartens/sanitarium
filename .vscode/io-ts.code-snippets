@@ -1,0 +1,18 @@
+{
+	"Hoist IO type": {
+		"scope": "javascript,typescript",
+		"prefix": "io",
+		"body": [
+			"type ${0:type} = TypeOf<typeof ${0:type}>;"
+		],
+		"description": "Hoist IO type into type system"
+	},
+	"Hoist function return type": {
+		"scope": "javascript,typescript",
+		"prefix": "ret",
+		"body": [
+			"type $0 = ReturnType<typeof $1>;"
+		],
+		"description": "Hoist function's return type into type system"
+	}
+}

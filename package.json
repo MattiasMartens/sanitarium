@@ -9,6 +9,7 @@
     "author": "Mattias Martens <mattiasofmartens@gmail.com>",
     "license": "ISC",
     "dependencies": {
+        "@types/node": "^12.7.5",
         "fp-ts": "^2.0.5",
         "io-ts": "^2.0.1"
     }
