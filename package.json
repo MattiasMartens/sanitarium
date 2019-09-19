@@ -1,6 +1,6 @@
 {
     "name": "sanitarium",
-    "version": "1.0.0-alpha",
+    "version": "1.0.0-alpha-2",
     "description": "Function builders for safety and sanity",
     "main": "isolated_function_builders/index.ts",
     "scripts": {
