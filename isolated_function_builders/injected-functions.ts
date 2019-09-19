@@ -16,12 +16,12 @@ export function injectedFunction<T extends any[], V, DependencyShape>(
 
 export function injectedFunctionAsync<T extends any[], V, DependencyShape>(
   provider: ProvidableAsync<DependencyShape>,
-  fn: Injectable<T, V, DependencyShape>
+  fn: Injectable<T, Promise<V>, DependencyShape>
 ) {
     const providedPromise = provider();
     const injected = async (...args: T) => {
       const provided = await providedPromise;
-      return fn(provided, ...args);
+      return await fn(provided, ...args);
     }
 
     injected.providedAsync = providedPromise;
