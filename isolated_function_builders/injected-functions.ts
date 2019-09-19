@@ -8,9 +8,9 @@ export function injectedFunction<T extends any[], V, DependencyShape>(
   provider: Providable<DependencyShape>,
   fn: Injectable<T, V, DependencyShape>
 ) {
-    const provided = provider();
-    const injected = (...args: T) => fn(provided, ...args);
-    injected.provided = provided;
+    let localOverride: DependencyShape;
+    const injected = (...args: T) => fn(localOverride || provider(), ...args);
+    injected.override = (provided: DependencyShape) => localOverride = provided;
     return injected;
 }
 
