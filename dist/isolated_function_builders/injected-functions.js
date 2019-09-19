@@ -20,7 +20,7 @@ function injectedFunctionAsync(provider, fn) {
     const providedPromise = provider();
     const injected = (...args) => __awaiter(this, void 0, void 0, function* () {
         const provided = yield providedPromise;
-        return fn(provided, ...args);
+        return yield fn(provided, ...args);
     });
     injected.providedAsync = providedPromise;
     return injected;
