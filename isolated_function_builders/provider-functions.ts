@@ -3,7 +3,7 @@ export function providerFunction<DependencyShape>(fn: () => DependencyShape) {
     val: fn()
   }
 
-  const interveneFunction = function(this: {override?: DependencyShape}) {
+  const interveneFunction = function() {
     return dependency.val;
   }
 
@@ -17,7 +17,7 @@ export function providerFunctionAsync<DependencyShape>(fn: () => Promise<Depende
     val: fn()
   }
 
-  const interveneFunction = async function(this: {override?: DependencyShape}) {
+  const interveneFunction = async function() {
     return await dependency.val;
   }
 
