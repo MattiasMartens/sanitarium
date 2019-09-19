@@ -1,5 +1,5 @@
 export declare const nextTask: {
-    (): Promise<Promise<any>>;
+    (): Promise<any>;
     providedAsync: Promise<{
         popPersistentRecord: any;
         pushPersistentRecord: any;

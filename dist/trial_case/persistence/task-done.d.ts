@@ -1,5 +1,5 @@
 export declare const taskDone: {
-    (): Promise<Promise<any>>;
+    (): Promise<any>;
     providedAsync: Promise<{
         popPersistentRecord: any;
         pushPersistentRecord: any;

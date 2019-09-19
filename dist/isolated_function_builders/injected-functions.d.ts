@@ -6,7 +6,7 @@ export declare function injectedFunction<T extends any[], V, DependencyShape>(pr
     (...args: T): V;
     override(provided: DependencyShape): DependencyShape;
 };
-export declare function injectedFunctionAsync<T extends any[], V, DependencyShape>(provider: ProvidableAsync<DependencyShape>, fn: Injectable<T, V, DependencyShape>): {
+export declare function injectedFunctionAsync<T extends any[], V, DependencyShape>(provider: ProvidableAsync<DependencyShape>, fn: Injectable<T, Promise<V>, DependencyShape>): {
     (...args: T): Promise<V>;
     providedAsync: Promise<DependencyShape>;
 };
