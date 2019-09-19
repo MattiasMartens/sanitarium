@@ -1,8 +1,8 @@
 {
     "name": "sanitarium",
-    "version": "1.0.0-alpha-3",
+    "version": "1.0.0-alpha-4",
     "description": "Function builders for safety and sanity",
-    "main": "isolated_function_builders/index.ts",
+    "main": "dist/isolated_function_builders/index.ts",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },

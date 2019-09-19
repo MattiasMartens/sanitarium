@@ -1,3 +1,4 @@
 node_modules
 trial_case
+dist/trial_case
 .vscode

@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es2016"
+    "target": "es2016",
+    "outDir": "./dist",
+    "declaration": true
   },
   "exclude": [
     "node_modules",
