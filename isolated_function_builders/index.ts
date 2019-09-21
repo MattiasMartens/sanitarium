@@ -1,8 +1,8 @@
-export * from "./typed-functions";
-export * from "./cased-functions";
+export * from "./test-hookable/typed-functions";
+export * from "./test-hookable/cased-functions";
 export * from "./forked-functions";
 export * from "./guarded-functions";
-export * from "./injected-functions";
+export * from "./test-hookable/injected-functions";
 export * from "./fiat-functions";
 export * from "./provider-functions";
 
