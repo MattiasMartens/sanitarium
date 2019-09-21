@@ -91,4 +91,3 @@ testGenerateWitness(union([string, number]));
 testGenerateWitness(type({
   a: boolean
 }));
-testGenerateWitness(Int, debug);

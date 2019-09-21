@@ -13,7 +13,7 @@ export function stronglyTypedFunction<T extends any[], V>(
     ReturnType
   } = types;
 
-  return (...args: T) => {
+  const outFn = (...args: T) => {
     if (!!ArgType && !ArgType.is(args)) {
       throw new Error(`Incorrect type supplied to function: ${PathReporter.report(ArgType.decode(args))}`);
     }
@@ -26,6 +26,9 @@ export function stronglyTypedFunction<T extends any[], V>(
 
     return result;
   };
+
+  outFn.types = types;
+  return outFn;
 }
 
 export function stronglyTypedFunctionAsync<T extends any[], V>(
@@ -40,7 +43,7 @@ export function stronglyTypedFunctionAsync<T extends any[], V>(
     ReturnType
   } = types;
 
-  return async (...args: T) => {
+  const outFn = async (...args: T) => {
     if (!!ArgType && !ArgType.is(args)) {
       throw new Error(`Incorrect type supplied to function: ${PathReporter.report(ArgType.decode(args))}`);
     }
@@ -53,4 +56,6 @@ export function stronglyTypedFunctionAsync<T extends any[], V>(
 
     return result;
   };
+
+  outFn.types = types;
 }
