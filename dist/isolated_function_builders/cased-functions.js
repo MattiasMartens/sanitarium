@@ -27,9 +27,9 @@ function casedFunctionAsync(fn, cases) {
         return (...args) => __awaiter(this, void 0, void 0, function* () {
             const inPredicatesMatched = cases.filter(({ inPredicate }) => inPredicate(...args));
             const result = yield fn(...args);
-            for (let { outPredicate } of inPredicatesMatched) {
+            for (let { outPredicate, caseName } of inPredicatesMatched) {
                 if (!outPredicate(result)) {
-                    throw new Error("Case failed to match");
+                    throw new Error(`Case ${caseName}${caseName ? " " : ""}was triggered but its input conditions failed to meet its output conditions`);
                 }
             }
             return result;

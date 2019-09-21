@@ -30,9 +30,9 @@ export async function casedFunctionAsync<T extends any[], V>(fn: (...args: T) =>
 
     const result = await fn(...args);
 
-    for (let {outPredicate} of inPredicatesMatched) {
+    for (let {outPredicate, caseName} of inPredicatesMatched) {
       if (!outPredicate(result)) {
-        throw new Error("Case failed to match");
+        throw new Error(`Case ${caseName}${caseName ? " " : ""}was triggered but its input conditions failed to meet its output conditions`);
       }
     }
 
