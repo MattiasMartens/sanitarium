@@ -1,9 +1,14 @@
 export function providerFunction<DependencyShape>(fn: () => DependencyShape) {
   const dependency = {
-    val: fn()
+    val: undefined,
+    fn
   }
 
-  const interveneFunction = function() {
+  const interveneFunction = function () {
+    if (dependency.val === undefined) {
+      dependency.val = fn();
+    }
+
     return dependency.val;
   }
 
@@ -14,10 +19,15 @@ export function providerFunction<DependencyShape>(fn: () => DependencyShape) {
 
 export function providerFunctionAsync<DependencyShape>(fn: () => Promise<DependencyShape>) {
   const dependency = {
-    val: fn()
+    val: undefined,
+    fn
   }
 
-  const interveneFunction = async function() {
+  const interveneFunction = async function () {
+    if (dependency.val === undefined) {
+      dependency.val = fn();
+    }
+
     return await dependency.val;
   }
 
