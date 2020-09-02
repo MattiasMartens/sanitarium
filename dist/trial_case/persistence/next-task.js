@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.nextTask = void 0;
 const provide_1 = require("./provide");
 const isolated_function_builders_1 = require("../../isolated_function_builders");
 exports.nextTask = isolated_function_builders_1.injectedFunctionAsync(provide_1.provide, ({ topPersistentRecord }) => __awaiter(void 0, void 0, void 0, function* () {

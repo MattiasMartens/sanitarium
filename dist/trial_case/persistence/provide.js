@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.provide = void 0;
 const io_1 = require("./io");
 const config_1 = require("../config");
 function provide() {

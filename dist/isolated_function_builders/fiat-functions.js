@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.fiatFunction = void 0;
 function fiatFunction(fn, fiats) {
     return (...args) => {
         for (let fiat of fiats) {

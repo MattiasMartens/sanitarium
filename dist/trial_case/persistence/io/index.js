@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.release = void 0;
 const manifest = require("./manifest");
 const fs_1 = require("fs");
 const path_1 = require("path");

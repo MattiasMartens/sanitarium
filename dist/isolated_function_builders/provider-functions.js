@@ -9,11 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.providerFunctionAsync = exports.providerFunction = void 0;
 function providerFunction(fn) {
     const dependency = {
-        val: fn()
+        val: undefined,
+        fn
     };
     const interveneFunction = function () {
+        if (dependency.val === undefined) {
+            dependency.val = fn();
+        }
         return dependency.val;
     };
     interveneFunction.override = (val) => dependency.val = val;
@@ -22,10 +27,14 @@ function providerFunction(fn) {
 exports.providerFunction = providerFunction;
 function providerFunctionAsync(fn) {
     const dependency = {
-        val: fn()
+        val: undefined,
+        fn
     };
     const interveneFunction = function () {
         return __awaiter(this, void 0, void 0, function* () {
+            if (dependency.val === undefined) {
+                dependency.val = fn();
+            }
             return yield dependency.val;
         });
     };

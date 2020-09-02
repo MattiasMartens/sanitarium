@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.execute = void 0;
 const io_ts_1 = require("io-ts");
 const isolated_function_builders_1 = require("../isolated_function_builders");
 const persistence_1 = require("./persistence");

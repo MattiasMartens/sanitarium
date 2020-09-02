@@ -9,18 +9,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.popPersistentRecord = void 0;
-const fs_1 = require("fs");
-const path_1 = require("path");
-const os_1 = require("os");
-function popPersistentRecord(fileName) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const path = path_1.join("trial_case", "fake_filestore", fileName);
-        const contents = yield fs_1.promises.readFile(path, "UTF-8");
-        const lines = contents.split(os_1.EOL);
-        const lastLine = lines.splice(lines.length - 1, 1)[0];
-        yield fs_1.promises.writeFile(path, lines.join(os_1.EOL));
-        return JSON.parse(lastLine || "null");
-    });
+exports.injectedFunctionAsync = exports.injectedFunction = void 0;
+function injectedFunction(provider, fn) {
+    let localOverride;
+    const injected = (...args) => fn(localOverride || provider(), ...args);
+    injected.override = (provided) => localOverride = provided;
+    return injected;
 }
-exports.popPersistentRecord = popPersistentRecord;
+exports.injectedFunction = injectedFunction;
+function injectedFunctionAsync(provider, fn) {
+    const providedPromise = provider();
+    const injected = (...args) => __awaiter(this, void 0, void 0, function* () {
+        const provided = yield providedPromise;
+        return yield fn(provided, ...args);
+    });
+    injected.providedAsync = providedPromise;
+    return injected;
+}
+exports.injectedFunctionAsync = injectedFunctionAsync;
