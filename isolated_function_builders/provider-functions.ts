@@ -9,7 +9,7 @@ export function providerFunction<DependencyShape>(fn: () => DependencyShape) {
       dependency.val = fn();
     }
 
-    return dependency.val;
+    return (dependency.val) as DependencyShape;
   }
 
   interveneFunction.override = (val: DependencyShape) => dependency.val = val;
@@ -28,7 +28,7 @@ export function providerFunctionAsync<DependencyShape>(fn: () => Promise<Depende
       dependency.val = fn();
     }
 
-    return await dependency.val;
+    return (await dependency.val) as DependencyShape;
   }
 
   interveneFunction.override = (val: Promise<DependencyShape>) => dependency.val = val;
